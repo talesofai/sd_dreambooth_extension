@@ -156,7 +156,7 @@ def on_ui_tabs():
             db_train_sample = gr.Button(value="Generate Samples", elem_id="db_train_sample")
             db_cancel = gr.Button(value="Cancel", elem_id="db_cancel")
         with gr.Row().style(equal_height=False):
-            with gr.Column(variant="panel", visible=False):
+            with gr.Column(variant="panel", visible=True):
                 gr.HTML(value="<span class='hh'>Model Selection</span>")
                 with gr.Row():
                     db_model_name = gr.Dropdown(label='Model', choices=sorted(get_db_models()))
