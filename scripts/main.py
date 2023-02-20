@@ -151,13 +151,17 @@ def on_ui_tabs():
             db_load_params = gr.Button(value='Load Settings', elem_id="db_load_params")
             db_save_params = gr.Button(value="Save Settings", elem_id="db_save_config")
             db_train_model = gr.Button(value="Train", variant='primary', elem_id="db_train")
-            db_generate_checkpoint = gr.Button(value="Generate Ckpt", elem_id="db_gen_ckpt")
+            db_generate_checkpoint = gr.Button(value="Generate Ckpt", elem_id="db_gen_ckpt", visible=False)
             db_generate_checkpoint_during = gr.Button(value="Save Weights", elem_id="db_gen_ckpt_during")
             db_train_sample = gr.Button(value="Generate Samples", elem_id="db_train_sample")
             db_cancel = gr.Button(value="Cancel", elem_id="db_cancel")
         with gr.Row().style(equal_height=False):
             with gr.Column(variant="panel", visible=True):
+                with gr.Row():
+                    image_batch = gr.File(label="图片批量上传", file_count="multiple", interactive=True, type="file", elem_id="extras_image_batch")
+
                 gr.HTML(value="<span class='hh'>Model Selection</span>")
+
                 with gr.Row():
                     db_model_name = gr.Dropdown(label='Model', choices=sorted(get_db_models()))
                     create_refresh_button(db_model_name, get_db_models, lambda: {
@@ -376,7 +380,7 @@ def on_ui_tabs():
                             c4_class_token, c4_num_class_images_per, c4_class_negative_prompt, c4_class_guidance_scale, \
                             c4_class_infer_steps, c4_save_sample_negative_prompt, c4_n_save_sample, c4_sample_seed, \
                             c4_save_guidance_scale, c4_save_infer_steps = build_concept_panel()
-                with gr.Tab("Saving"):
+                with gr.Tab("Saving", visible=False):
                     with gr.Column():
                         gr.HTML("General")
                         db_custom_model_name = gr.Textbox(label="Custom Model Name", value="",
@@ -406,7 +410,7 @@ def on_ui_tabs():
                             label="Save separate diffusers snapshots when training completes.")
                         db_save_state_cancel = gr.Checkbox(
                             label="Save separate diffusers snapshots when training is canceled.")
-                with gr.Tab("Generate"):
+                with gr.Tab("Generate", visible=False):
                     with gr.Column():
                         db_generate_classes = gr.Button(value="Generate Class Images")
                         db_generate_prompts = gr.Button(value="Preview Prompts")
@@ -949,7 +953,8 @@ def on_ui_tabs():
             _js="db_start_train",
             inputs=[
                 db_model_name,
-                db_use_txt2img
+                db_use_txt2img,
+                image_batch,
             ],
             outputs=[
                 db_lora_model_name,
