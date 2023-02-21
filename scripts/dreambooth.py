@@ -394,7 +394,7 @@ def load_model_params(model_name):
             msg
 
 
-def start_training(model_dir: str, use_txt2img: bool = True, image_batch: str = "DO_NOT_USE"):
+def start_training(model_dir: str, use_txt2img: bool = True):
     """
 
     @param model_dir: The directory containing the dreambooth model/config
@@ -406,8 +406,6 @@ def start_training(model_dir: str, use_txt2img: bool = True, image_batch: str = 
     images: Output images from training.
     status: Any relevant messages.
     """
-    print("chengyuan testing..")
-    print(image_batch)
     if model_dir == "" or model_dir is None:
         print("Invalid model name.")
         msg = "Create or select a model first."

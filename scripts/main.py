@@ -954,7 +954,6 @@ def on_ui_tabs():
             inputs=[
                 db_model_name,
                 db_use_txt2img,
-                image_batch,
             ],
             outputs=[
                 db_lora_model_name,
